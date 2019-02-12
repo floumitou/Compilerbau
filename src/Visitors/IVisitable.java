@@ -1,4 +1,5 @@
 package Visitors;
 
-public class IVisitable {
+interface IVisitable {
+        void accept(Visitor visitor);
 }
