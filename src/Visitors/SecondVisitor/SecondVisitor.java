@@ -1,9 +1,10 @@
 package Visitors.SecondVisitor;
 
 
-import Visitors.FollowposTableEntry;
-import Visitors.IVisitor;
+import Visitors.*;
 
+import java.util.HashSet;
+import java.util.Set;
 import java.util.SortedMap;
 import java.util.TreeMap;
 
@@ -31,54 +32,68 @@ public class SecondVisitor implements IVisitor {
     // traverse method
     public void visitTreeNodes(Visitable root) {
 
-   //todo     DepthFirstIterator.traverse(root, this);
+        DepthFirstIterator.traverse(root, this);
     }
 
-    // visit methods
 
-    public void visit(OperandNode node) {
+    public void visit(OperandNode node) {  // visit methods
 
         FollowposTableEntry entry = new FollowposTableEntry(node.position, node.symbol);
 
         entry.followpos.clear();
 
-        followPosTableEntries.put(node.position, entry);
+        followposTableEntries.put(node.position, entry);
     }
 
-    public void visit(UnaryOpNode node) {
+    public void visit(UnaryOpNode node) {  // visit methods
 
-        Set<Integer> followPosValues = new HashSet<>(); // todo Why did I add this???
+        switch (node.operator) {
+            case "*":
+                for (int i : node.lastpos) {
+                    for (int j : node.firstpos) {
+                        followposTableEntries.get(i).followpos.add(j);
+                    }
+                }
 
-        // if operation is Kleene star or Kleene plus
-        if (node.operator.equals("*") || node.operator.equals("+")) {
+                break;
 
-            // iterate through all nodes in lastpos
-            for (int lastPosValue : node.lastpos) {
+            case "+":
+                for (int i : node.lastpos) {
+                    for (int j : node.firstpos) {
+                        followposTableEntries.get(i).followpos.add(j);
+                    }
+                }
 
-                // followpos(node at lastPosValue) += firstpos(node)
-                // and update entry set
-                // todo How to update the node at the position lastPosValue?
-                followPosTableEntries.get(lastPosValue).followpos.addAll(node.firstpos);
-            }
+                break;
+
+            case "?":
+                break;
+
+            default:
+                System.out.println("Sth unexpected Happened: " + node.getClass().toGenericString() + " " + node.operator);
+                break;
         }
     }
 
-    public void visit(BinOpNode node) {
+    public void visit(BinOpNode node) {  // visit methods
+        switch (node.operator) {
+            case "°":
+                for (int i : ((SyntaxNode)node.left).lastpos) {
+                    for (int j : ((SyntaxNode) node.right).firstpos) {
+                        followposTableEntries.get(i).followpos.add(j);
+                    }
+                }
 
-        // if operation is concatenation
-        if (node.operator.equals("°")) {
+                break;
 
-            // iterate through all nodes in lastpos of this node's left child
-            for (int lastPosValue : ((SyntaxNode) node.left).lastpos) {
-
-                // followpos(node at lastPosValue) += lastpos(right child)
-                // and update entry set
-                followPosTableEntries.get(lastPosValue).followpos.addAll(((SyntaxNode) node.right).lastpos);
-            }
-        }
+            case "|":
+                break;
+            default:
+                System.out.println("Sth unexpected Happened: " + node.getClass().toGenericString() + " " + node.operator);
+                break;
     }
 
 
 
 
-}
+}}
