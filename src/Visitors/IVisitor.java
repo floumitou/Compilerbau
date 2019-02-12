@@ -1,4 +1,4 @@
 package Visitors;
 
-public class IVisitor {
+public interface IVisitor {
 }
