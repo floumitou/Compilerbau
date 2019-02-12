@@ -1,4 +1,4 @@
-package Visitors.SecondVisitor;
+package Visitors;
 
 public class SecondVisitor {
 }
