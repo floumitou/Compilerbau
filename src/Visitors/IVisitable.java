@@ -1,7 +1,5 @@
 package Visitors;
 
-interface Visitable
-{
-    void accept(Visitor visitor);
+interface IVisitable {
+        void accept(Visitor visitor);
 }
-

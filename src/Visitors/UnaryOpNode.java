@@ -1,6 +1,6 @@
 package Visitors;
 
-public class UnaryOpNode extends SyntaxNode implements Visitable
+public class UnaryOpNode extends SyntaxNode implements IVisitable
 {
     public String operator;
     public Visitable subNode;

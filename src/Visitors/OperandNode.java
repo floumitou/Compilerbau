@@ -1,6 +1,6 @@
 package Visitors;
 
-public class OperandNode extends SyntaxNode implements Visitable
+public class OperandNode extends SyntaxNode implements IVisitable
 {
     public int position;
     public String symbol;
