@@ -1,15 +1,18 @@
 package DEAGenerator;
 import Visitors.*;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Map;
+import java.util.SortedMap;
+import java.util.TreeMap;
 
 
 public class DFATableBuilder {
 
     SortedMap<Integer, FollowposTableEntry> followPosTableEntries= new TreeMap<>();
-    DFAStateMap theStateMap;
+    DFAMap theStateMap;
     public DFATableBuilder(){
-        theStateMap=new DFAStateMap();
+        theStateMap=new DFAMap();
     }
 
     public SortedMap<DFAState, Map<Character, DFAState>> createDFATable(SortedMap<Integer, FollowposTableEntry> followPosTableEntries){

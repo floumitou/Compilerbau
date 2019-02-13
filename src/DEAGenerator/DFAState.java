@@ -2,14 +2,13 @@ package DEAGenerator;
 
 import java.util.Set;
 
-public class DFAState {
 
     class DFAState implements Comparable<DFAState> {
         public final int          index;
         public final Boolean      isAcceptingState;
         public final Set<Integer> positionsSet;
-        public DFAState(int          index,
-                        Boolean      isAcceptingState,
+        DFAState(       int          index,
+                        boolean      isAcceptingState,
                         Set<Integer> positionsSet)
         {
             this.index             = index;
@@ -34,9 +33,9 @@ public class DFAState {
             return result;
         }
         @Override
-        int compareTo(DFAState other) {
+        public int compareTo(DFAState other) {
             return (this.index - other.index);
         }
     }
 
-}
+
