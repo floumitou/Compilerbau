@@ -1,7 +1,5 @@
 package Visitors;
 
-import java.util.HashSet;
-import java.util.Set;
 import java.util.SortedMap;
 import java.util.TreeMap;
 
@@ -26,14 +24,13 @@ public class SecondVisitor implements IVisitor {
         depthFirstIterator = new DepthFirstIterator();
     }
 
-    // traverse method
     public void visitTreeNodes(IVisitable root) {
 
         DepthFirstIterator.traverse(root, this);
     }
 
 
-    public void visit(OperandNode node) {  // visit methods
+    public void visit(OperandNode node) {  // OperandNode
 
         FollowposTableEntry entry = new FollowposTableEntry(node.position, node.symbol);
 
@@ -42,7 +39,7 @@ public class SecondVisitor implements IVisitor {
         followposTableEntries.put(node.position, entry);
     }
 
-    public void visit(UnaryOpNode node) {  // visit methods
+    public void visit(UnaryOpNode node) {  // UnaryOpNode
 
         switch (node.operator) {
             case "*":
@@ -72,7 +69,7 @@ public class SecondVisitor implements IVisitor {
         }
     }
 
-    public void visit(BinOpNode node) {  // visit methods
+    public void visit(BinOpNode node) {  // BinOpNode
         switch (node.operator) {
             case "°":
                 for (int i : ((SyntaxNode)node.left).lastpos) {
@@ -89,5 +86,5 @@ public class SecondVisitor implements IVisitor {
                 System.out.println("Sth unexpected Happened: " + node.getClass().toGenericString() + " " + node.operator);
                 break;
     }
-    
+
 }}
