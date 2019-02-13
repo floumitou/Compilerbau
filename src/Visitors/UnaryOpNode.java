@@ -3,15 +3,15 @@ package Visitors;
 public class UnaryOpNode extends SyntaxNode implements IVisitable
 {
     public String operator;
-    public Visitable subNode;
-    public UnaryOpNode(String operator, Visitable subNode)
+    public IVisitable subNode;
+    public UnaryOpNode(String operator, IVisitable subNode)
     {
         this.operator = operator;
         this.subNode = subNode;
     }
+
     @Override
-    public void accept(Visitor vistor)
-    {
+    public void accept(IVisitor visitor) {
         visitor.visit(this);
     }
 }

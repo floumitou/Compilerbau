@@ -1,5 +1,5 @@
 package Visitors;
 
-interface IVisitable {
-        void accept(Visitor visitor);
+public interface IVisitable {
+        void accept(IVisitor visitor);
 }

@@ -9,9 +9,10 @@ public class OperandNode extends SyntaxNode implements IVisitable
         position = -1; // bedeutet: noch nicht initialisiert
         this.symbol = symbol;
     }
+
+
     @Override
-    public void accept(Visitor vistor)
-    {
+    public void accept(IVisitor visitor) {
         visitor.visit(this);
     }
 }
