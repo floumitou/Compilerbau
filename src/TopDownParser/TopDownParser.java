@@ -23,7 +23,6 @@ public class TopDownParser {
     }
 
     public IVisitable start() {
-
         if (regEx.length() < 1) {
             throw new RuntimeException("Expression is empty");
         } else if (sign == '#') {
@@ -37,7 +36,6 @@ public class TopDownParser {
     }
 
     private IVisitable regExp() {
-
         if (Character.isLetterOrDigit(sign) || sign == '(') {
             return rE(term(null));
         } else throw new RuntimeException("No regular Expression");
@@ -69,28 +67,24 @@ public class TopDownParser {
     }
 
     private IVisitable factor() {
-
         return hop(elem());
     }
 
     private IVisitable elem() {
-
         if (sign == '(') {
             next();
             return regExp();
         } else {
             return alphanum();
         }
-
     }
 
     private IVisitable hop(IVisitable parameter) {
-        String symbol = Character.toString(sign);
         if (Character.isLetterOrDigit(sign) || sign == '(' || sign=='|'|| sign == ')') {
             return parameter;
         } else if (sign == '*') {
             next();
-            return new UnaryOpNode(symbol, parameter);
+            return new UnaryOpNode("*", parameter);
         } else if (sign == '+') {
             next();
             return new UnaryOpNode("+", parameter);
@@ -98,7 +92,6 @@ public class TopDownParser {
             next();
             return new UnaryOpNode("?", parameter);
         } else throw new RuntimeException("No regular Expression");
-
     }
 
     private IVisitable alphanum() {
