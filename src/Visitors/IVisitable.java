@@ -1,5 +1,6 @@
 package Visitors;
 
 interface IVisitable {
-        void accept(Visitor visitor);
+        void accept(IVisitor visitor);
+        String toString();
 }
