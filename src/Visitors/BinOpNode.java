@@ -12,6 +12,7 @@ public class BinOpNode extends SyntaxNode implements IVisitable
         this.left = left;
         this.right = right;
     }
+    
     @Override
     public void accept(IVisitor visitor)
     {
@@ -27,4 +28,3 @@ public class BinOpNode extends SyntaxNode implements IVisitable
                 '}';
     }
 }
-
