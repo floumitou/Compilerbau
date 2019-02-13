@@ -4,6 +4,7 @@ public class UnaryOpNode extends SyntaxNode implements IVisitable
 {
     public String operator;
     public IVisitable subNode;
+
     public UnaryOpNode(String operator, IVisitable subNode)
     {
         this.operator = operator;
@@ -11,8 +12,18 @@ public class UnaryOpNode extends SyntaxNode implements IVisitable
     }
 
     @Override
-    public void accept(IVisitor visitor) {
+    public void accept(IVisitor visitor)
+    {
         visitor.visit(this);
     }
+
+    @Override
+    public String toString() {
+        return "UnaryOpNode{" +
+                "operator='" + operator + '\'' +
+                ", subNode=" + subNode.toString() +
+                '}';
+    }
+
 }
 

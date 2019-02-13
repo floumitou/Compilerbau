@@ -1,8 +1,5 @@
 package Visitors;
 
-
-import Visitors.*;
-
 import java.util.HashSet;
 import java.util.Set;
 import java.util.SortedMap;
@@ -30,7 +27,7 @@ public class SecondVisitor implements IVisitor {
     }
 
     // traverse method
-    public void visitTreeNodes(Visitable root) {
+    public void visitTreeNodes(IVisitable root) {
 
         DepthFirstIterator.traverse(root, this);
     }
@@ -92,8 +89,5 @@ public class SecondVisitor implements IVisitor {
                 System.out.println("Sth unexpected Happened: " + node.getClass().toGenericString() + " " + node.operator);
                 break;
     }
-
-
-
-
+    
 }}
