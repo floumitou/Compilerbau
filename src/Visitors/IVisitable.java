@@ -1,6 +1,6 @@
 package Visitors;
 
-interface IVisitable {
+public interface IVisitable {
         void accept(IVisitor visitor);
         String toString();
 }
