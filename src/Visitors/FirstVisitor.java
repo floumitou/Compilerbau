@@ -1,126 +1,50 @@
 package Visitors;
 
-
 import java.util.HashSet;
 import java.util.Set;
 
 public class FirstVisitor implements IVisitor {
-    // all objects share same variable
-    private static int positionCounter = 0;
 
+    private static int posCounter = 0;
 
-    public void visit(OperandNode node) {
-        node.nullable = isOperandNullable(node);
+    public void visit(OperandNode pNode) {
+        pNode.nullable = isOperandNullable(pNode);
 
-        node.firstpos.addAll(setFirstAndLastPos(node));
-        node.lastpos.addAll(setFirstAndLastPos(node));
+        pNode.firstpos.addAll(setFirstAndLastPos(pNode));
+        pNode.lastpos.addAll(setFirstAndLastPos(pNode));
     }
 
-    public void visit(BinOpNode node) {
-        node.nullable = isBinOpNullable(node);
+    public void visit(BinOpNode pNode) {
+        pNode.nullable = isBinOpNullable(pNode);
 
-        node.firstpos.addAll(setFirstPos(node));
-        node.lastpos.addAll(setLastPos(node));
+        pNode.firstpos.addAll(setFirstPos(pNode));
+        pNode.lastpos.addAll(setLastPos(pNode));
     }
 
-    public void visit(UnaryOpNode node) {
-        node.nullable = isUnaryNullable(node);
+    public void visit(UnaryOpNode pNode) {
+        pNode.nullable = isUnaryNullable(pNode);
 
-        node.firstpos.addAll(setFirstPos(node));
-        node.lastpos.addAll(setLastPos(node));
+        pNode.firstpos.addAll(setFirstPos(pNode));
+        pNode.lastpos.addAll(setLastPos(pNode));
     }
 
 
-    public Set<Integer> setFirstAndLastPos(OperandNode node){
+    // method to traverse the nodes (in DepthFirstIterator)
+    public void visitTreeNodes(IVisitable root) {
+        DepthFirstIterator.traverse(root, this);
+    }
+
+
+    public Set<Integer> setFirstAndLastPos(OperandNode pNode){
         Set<Integer> set = new HashSet<>();
-        if (node.symbol.equals("epsilon")){
+        if (pNode.symbol.equals("epsilon")){
             set.clear();
         }
         else{
-            positionCounter++;
-            set.add(positionCounter);
+            posCounter++;
+            set.add(posCounter);
         }
         return set;
-    }
-
-    public Set<Integer> setFirstPos (UnaryOpNode node){
-        Set<Integer> set = new HashSet<>();
-        if (node.operator.equals("*") || (node.operator.equals("+") || (node.operator.equals("?")))){
-            set = ((SyntaxNode)node.subNode).firstpos;
-        }
-        return set;
-    }
-
-    public Set<Integer> setLastPos (UnaryOpNode node){
-        Set<Integer> set = new HashSet<>();
-        if (node.operator.equals("*") || (node.operator.equals("+") || (node.operator.equals("?")))){
-            set = ((SyntaxNode)node.subNode).lastpos;
-        }
-        return set;
-    }
-
-    public Set<Integer> setFirstPos (BinOpNode node){
-        Set<Integer> set = new HashSet<>();
-        if (node.operator.equals("|")){
-            set.addAll(((SyntaxNode)node.left).firstpos);
-            set.addAll(((SyntaxNode)node.right).firstpos);
-        }
-        else if(node.operator.equals("°")){
-            if (((SyntaxNode)node.left).nullable){
-                set.addAll(((SyntaxNode)node.left).firstpos);
-                set.addAll(((SyntaxNode)node.right).firstpos);
-            }
-            else{
-                set.addAll(((SyntaxNode)node.left).firstpos);
-            }
-        }
-        return set;
-    }
-
-    public Set<Integer> setLastPos (BinOpNode node){
-        Set<Integer> set = new HashSet<>();
-        if (node.operator.equals("|")){
-            set = ((SyntaxNode)node.left).lastpos;
-            set.addAll(((SyntaxNode)node.right).lastpos);
-        }
-        else if (node.operator.equals("°")){
-            if(((SyntaxNode)node.right).nullable){
-                set = ((SyntaxNode)node.left).lastpos;
-                set.addAll(((SyntaxNode)node.right).lastpos);
-            }
-            else{
-                set = (((SyntaxNode)node.right).lastpos);
-            }
-        }
-        return set;
-    }
-
-    // check if node is nullable
-    public boolean isUnaryNullable(UnaryOpNode node) {
-        // has one descendant
-        if (node.operator.equals("*") || node.operator.equals("?")) {
-            return true;
-        } else if (node.operator.equals("?")) {
-            // is automatically a leaf -> no children
-            return ((OperandNode) node.subNode).symbol.equals("epsilon");
-        }
-        return false;
-    }
-
-    public boolean isBinOpNullable(BinOpNode node) {
-        // has descendants
-        if (node.operator.equals("|")) {
-
-            // two operands or UnaryOp and operand or binaryop and operand
-            return (((SyntaxNode) node.left).nullable) || ((SyntaxNode) node.right).nullable;
-        }
-        // concatenation
-        else if (node.operator.equals("°")) {
-            return (((SyntaxNode) node.left).nullable) && ((SyntaxNode) node.right).nullable;
-        } else if (node.operator.equals("?")) {
-            return true;
-        }
-        else return node.operator.equals("*");
     }
 
     public boolean isOperandNullable(OperandNode node){
@@ -128,9 +52,84 @@ public class FirstVisitor implements IVisitor {
         return node.symbol.equals("epsilon");
     }
 
-    // traverse method
-    public void visitTreeNodes(IVisitable root) {
 
-        DepthFirstIterator.traverse(root, this);
+    public Set<Integer> setFirstPos (BinOpNode pNode){
+        Set<Integer> set = new HashSet<>();
+        if (pNode.operator.equals("|")){
+            set.addAll(((SyntaxNode)pNode.left).firstpos);
+            set.addAll(((SyntaxNode)pNode.right).firstpos);
+        }
+        else if(pNode.operator.equals("°")){
+            if (((SyntaxNode)pNode.left).nullable){
+                set.addAll(((SyntaxNode)pNode.left).firstpos);
+                set.addAll(((SyntaxNode)pNode.right).firstpos);
+            }
+            else{
+                set.addAll(((SyntaxNode)pNode.left).firstpos);
+            }
+        }
+        return set;
     }
+
+    public Set<Integer> setLastPos (BinOpNode pNode){
+        Set<Integer> set = new HashSet<>();
+        if (pNode.operator.equals("|")){
+            set = ((SyntaxNode)pNode.left).lastpos;
+            set.addAll(((SyntaxNode)pNode.right).lastpos);
+        }
+        else if (pNode.operator.equals("°")){
+            if(((SyntaxNode)pNode.right).nullable){
+                set = ((SyntaxNode)pNode.left).lastpos;
+                set.addAll(((SyntaxNode)pNode.right).lastpos);
+            }
+            else{
+                set = (((SyntaxNode)pNode.right).lastpos);
+            }
+        }
+        return set;
+    }
+
+    public boolean isBinOpNullable(BinOpNode pNode) {
+        // node has descendants
+        if (pNode.operator.equals("|")) {
+            return (((SyntaxNode) pNode.left).nullable) || ((SyntaxNode) pNode.right).nullable;
+        }
+        // concatenation
+        else if (pNode.operator.equals("°")) {
+            return (((SyntaxNode) pNode.left).nullable) && ((SyntaxNode) pNode.right).nullable;
+        } else if (pNode.operator.equals("?")) {
+            return true;
+        }
+        else return pNode.operator.equals("*");
+    }
+
+
+    public Set<Integer> setFirstPos (UnaryOpNode pNode){
+        Set<Integer> set = new HashSet<>();
+        if (pNode.operator.equals("*") || (pNode.operator.equals("+") || (pNode.operator.equals("?")))){
+            set = ((SyntaxNode)pNode.subNode).firstpos;
+        }
+        return set;
+    }
+
+    public Set<Integer> setLastPos (UnaryOpNode pNode){
+        Set<Integer> set = new HashSet<>();
+        if (pNode.operator.equals("*") || (pNode.operator.equals("+") || (pNode.operator.equals("?")))){
+            set = ((SyntaxNode)pNode.subNode).lastpos;
+        }
+        return set;
+    }
+
+    // check if node is nullable
+    public boolean isUnaryNullable(UnaryOpNode pNode) {
+        // node has one descendant
+        if (pNode.operator.equals("*") || pNode.operator.equals("?")) {
+            return true;
+        } else if (pNode.operator.equals("?")) {
+            // node is automatically a leaf = no children
+            return ((OperandNode) pNode.subNode).symbol.equals("epsilon");
+        }
+        return false;
+    }
+
 }
