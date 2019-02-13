@@ -39,6 +39,7 @@ public class DFATableBuilder {
             }
             dfaTransitionMatrix.put(stateEntries.get(i), temporaryMap);
         }
+        //finalTable
         return dfaTransitionMatrix;
     }
 
