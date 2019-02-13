@@ -1,7 +1,5 @@
 package Visitors;
 
-import java.util.HashSet;
-import java.util.Set;
 import java.util.SortedMap;
 import java.util.TreeMap;
 
@@ -88,5 +86,5 @@ public class SecondVisitor implements IVisitor {
                 System.out.println("Sth unexpected Happened: " + node.getClass().toGenericString() + " " + node.operator);
                 break;
     }
-    
+
 }}
