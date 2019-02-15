@@ -66,7 +66,7 @@ public class SecondVisitor implements IVisitor {
                 break;
 
             default:
-                System.out.println("Sth unexpected Happened: " + node.getClass().toGenericString() + " " + node.operator);
+                System.out.println("Failure: " + node.getClass().toGenericString() + " " + node.operator);
                 break;
         }
     }
@@ -85,7 +85,7 @@ public class SecondVisitor implements IVisitor {
             case "|":
                 break;
             default:
-                System.out.println("Sth unexpected Happened: " + node.getClass().toGenericString() + " " + node.operator);
+                System.out.println("Failure: " + node.getClass().toGenericString() + " " + node.operator);
                 break;
     }
 
