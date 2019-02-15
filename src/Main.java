@@ -1,6 +1,9 @@
+import DEAGenerator.DFAState;
+import DEAGenerator.DFATableBuilder;
 import TopDownParser.TopDownParser;
 import Visitors.*;
 
+import java.util.Map;
 import java.util.Scanner;
 import java.util.SortedMap;
 
@@ -32,5 +35,8 @@ public class Main {
 
 
         //Basti macht Sachen mit FollowPosTableEntries
+
+        DFATableBuilder stateBuilder = new DFATableBuilder();
+        SortedMap<DFAState, Map<Character, DFAState>> stateMap = stateBuilder.createDFATable(followPosTableEntries);
     }
 }
