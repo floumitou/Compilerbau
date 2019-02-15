@@ -8,6 +8,12 @@ import java.util.SortedMap;
 import java.util.TreeMap;
 
 
+/**
+ * @author: Bastian Beeker
+ */
+
+
+
 public class DFATableBuilder {
 
     SortedMap<Integer, FollowposTableEntry> followPosTableEntries = new TreeMap<>();

@@ -3,6 +3,11 @@ package DEAGenerator;
 import java.util.Set;
 
 
+/**
+ * @author: Bastian Beeker
+ */
+
+
     public class DFAState implements Comparable<DFAState> {
         public final int          index;
         public final Boolean      isAcceptingState;
