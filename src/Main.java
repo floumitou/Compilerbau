@@ -12,5 +12,8 @@ public class Main {
         TopDownParser parser = new TopDownParser(regExp);
 
         IVisitable SyntaxTree = parser.start();
+
+        FirstVisitor firstVisitor = new FirstVisitor();
+        SyntaxTree = firstVisitor.visitTreeNodes(SyntaxTree);
     }
 }
