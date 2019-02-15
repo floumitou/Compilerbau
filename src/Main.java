@@ -34,7 +34,7 @@ public class Main {
         followPosTableEntries = secondVisitor.getFollowposTableEntries();
 
 
-        //Basti macht Sachen mit FollowPosTableEntries
+        //Basti
 
         DFATableBuilder stateBuilder = new DFATableBuilder();
         SortedMap<DFAState, Map<Character, DFAState>> stateMap = stateBuilder.createDFATable(followPosTableEntries);
