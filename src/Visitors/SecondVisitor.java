@@ -3,7 +3,9 @@ package Visitors;
 import java.util.SortedMap;
 import java.util.TreeMap;
 
-
+/**
+ * @author: Tom Scholl
+ */
 
 public class SecondVisitor implements IVisitor {
 
