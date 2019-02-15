@@ -22,7 +22,7 @@ public class Main {
 
         //Florian
         FirstVisitor firstVisitor = new FirstVisitor();
-        SyntaxTree = firstVisitor.visitTreeNodes(SyntaxTree);
+        firstVisitor.visitTreeNodes(SyntaxTree);
 
 
 
