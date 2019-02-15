@@ -3,6 +3,8 @@ package Visitors;
 import java.util.HashSet;
 import java.util.Set;
 
+//author Florian Herzog
+
 public class FirstVisitor implements IVisitor {
 
     private static int posCounter = 0;
