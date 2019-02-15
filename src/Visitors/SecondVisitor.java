@@ -18,7 +18,7 @@ public class SecondVisitor implements IVisitor {
 
 
 
-    public SecondVisitor() {
+    public SecondVisitor() {            //
 
         followposTableEntries = new TreeMap<>();
         depthFirstIterator = new DepthFirstIterator();
