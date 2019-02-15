@@ -5,6 +5,10 @@ import Visitors.IVisitable;
 import Visitors.OperandNode;
 import Visitors.UnaryOpNode;
 
+/**
+ * @author: Diego Kaltdorf
+ */
+
 public class TopDownParser {
     private String regEx;
     private char sign;
