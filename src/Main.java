@@ -17,12 +17,12 @@ public class Main {
         String regExp = input.next();
         TopDownParser parser = new TopDownParser(regExp);
 
-        IVisitable SyntaxTree = parser.start();
+        IVisitable syntaxTree = parser.start();
 
 
         //Florian
         FirstVisitor firstVisitor = new FirstVisitor();
-        firstVisitor.visitTreeNodes(SyntaxTree);
+        firstVisitor.visitTreeNodes(syntaxTree);
 
 
 
@@ -30,7 +30,7 @@ public class Main {
         SortedMap<Integer, FollowposTableEntry> followPosTableEntries;
 
         SecondVisitor secondVisitor = new SecondVisitor();
-        DepthFirstIterator.traverse(SyntaxTree, secondVisitor);
+        DepthFirstIterator.traverse(syntaxTree, secondVisitor);
         followPosTableEntries = secondVisitor.getFollowposTableEntries();
 
 
